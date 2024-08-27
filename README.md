@@ -31,6 +31,4 @@ npm start
 This will start the backend server and make the API available at `http://localhost:3001` (or the port specified in the `package.json` file).
 
 </section>
-```
 
-In this example, the `<section>` tags are used to semantically group the frontend and backend instructions. The terminal commands are placed within code blocks, making them easy to copy.
