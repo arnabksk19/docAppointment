@@ -1,6 +1,6 @@
-# Project Name
+# docAppointment
 
-Welcome to **appointDoc**!
+Welcome to **docAppointment**!
 
 This project consists of a frontend and backend application. Below are the instructions to run each part of the project.
 
@@ -31,4 +31,3 @@ npm start
 This will start the backend server and make the API available at `http://localhost:3001` (or the port specified in the `package.json` file).
 
 </section>
-
