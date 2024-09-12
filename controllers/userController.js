@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const userModel = require('../models/userModel');
+const userModel = require("../models/userModel");
 const doctorModel = require("../models/doctorModel");
 const appointmentModel = require("../models/appointmentModel");
 const jwt = require("jsonwebtoken");
@@ -11,14 +11,16 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.status(404).send('User Not Found');
+      return res.status(404).send("User Not Found");
     }
     // Compare hashed password
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(401).send('Invalid Password');
+      return res.status(401).send("Invalid Password");
     }
-    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET,{expiresIn:"1d"},);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
     res.status(200).send({ message: "Login Success", success: true, token });
   } catch (error) {
     console.log(error);
@@ -178,7 +180,7 @@ const getAllDocotrsController = async (req, res) => {
   }
 };
 
-// Checking Availability 
+// Checking Availability
 const bookingAvailabilityController = async (req, res) => {
   try {
     const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
@@ -223,7 +225,6 @@ const bookingAvailabilityController = async (req, res) => {
     });
   }
 };
-
 
 //BOOK APPOINTMENT
 /*const bookAppointmentController = async (req, res) => {
@@ -302,7 +303,7 @@ const bookAppointmentController = async (req, res) => {
     const appointments = await appointmentModel.find({
       doctorId,
       date,
-      status: "approved"
+      status: "approved",
     });
     if (appointments.length >= doctor.maxPatientsPerDay) {
       return res.status(400).send({
@@ -314,7 +315,7 @@ const bookAppointmentController = async (req, res) => {
       doctorId,
       date,
       time: startTime,
-      status: "approved"
+      status: "approved",
     });
     if (existingAppointment) {
       return res.status(400).send({
@@ -345,10 +346,6 @@ const bookAppointmentController = async (req, res) => {
   }
 };
 
-
-
-
-
 const userAppointmentsController = async (req, res) => {
   try {
     const appointments = await appointmentModel.find({
@@ -369,4 +366,15 @@ const userAppointmentsController = async (req, res) => {
   }
 };
 
-module.exports = { loginController, registerController, authController , applyDoctorController, getAllNotificationController, deleteAllNotificationController, getAllDocotrsController, bookAppointmentController, bookingAvailabilityController, userAppointmentsController};
+module.exports = {
+  loginController,
+  registerController,
+  authController,
+  applyDoctorController,
+  getAllNotificationController,
+  deleteAllNotificationController,
+  getAllDocotrsController,
+  bookAppointmentController,
+  bookingAvailabilityController,
+  userAppointmentsController,
+};
